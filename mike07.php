@@ -1,5 +1,5 @@
 <?php
-    $ans = $x = $y = ""; //預設值 string
+    $ans = $x = $y = $m =""; //預設值 string
     $op = 1;
     if(isset($_GET['x']) && isset($_GET['y'])) {
         $x = $_GET['x'];
@@ -16,8 +16,10 @@
                 break;
             case 3:
                 $ans = $x * $y;
+                break;
             case 4:
-                $ans = $x / $y;
+                $ans = (int)($x / $y);
+                $m = $x % $y;
                 break;
         }
     };
@@ -34,6 +36,8 @@
     <input type = "submit" value = "="/>
     <?php
         echo $ans;
+        if($m)
+            echo "餘{$m}";
     ?>
 </form>
 
