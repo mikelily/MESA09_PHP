@@ -31,9 +31,16 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+        <title>Check Leap Year</title>
     </head>
     <body>
-        <form id="register_form" role="form" data-toggle="validator">
+        <form class="form-horizontal" id="register_form" role="form" data-toggle="validator">
+
             <div class="form-group">
                 <label for="inputName"
                        class="control-label col-sm-2">
@@ -57,18 +64,55 @@
                     </button>
                 </div>
             </div>
+            <div style="position: relative;">
+                <canvas id="static" width="300" height="400"
+                        style="position: absolute; border:1px solid #AAAAAA;">
+                </canvas>
+                <canvas id="dynamic" width="300" height="400"
+                        style="position: absolute; border:1px solid #AAAAAA;">
+                </canvas>
+            </div>
         </form>
         <div>
-            <?php
-            echo $tOrF;
-            ?>
+
+
+        <img id="img0229" src="/res/img/0229.png" style="display: none;"/>
+
         </div>
 
+        <script>
+            window.onload = init;
 
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+            var c_static = document.getElementById("static");
+            var ctx_static = c_static.getContext("2d");
+            function init() {
+
+                ctx_static.drawImage(img0229, 0, 0,300,400);
+            }
+
+
+            var c_dynamic = document.getElementById("dynamic");
+            var ctx_dynamic = c_dynamic.getContext("2d");
+            ctx_dynamic.clearRect(0,0,400,300);
+            //ctx_dynamic.drawImage(imgLoop, 10, 20);
+            ctx_dynamic.font = "130px Arial italic";
+            ctx_dynamic.textBaseline = "bottom";
+            ctx_dynamic.textAlign = "center";
+            ctx_dynamic.fillStyle = "red";
+
+            var newText = "<?php
+                                if(isset($_GET['yearCheck'])) {
+                                    if ($tOrF)
+                                        echo "True";
+                                    else
+                                        echo "False";
+                                };
+                            ?>";
+            ctx_dynamic.fillText(newText, 150, 270);
+
+        </script>
+
+
 
         <!--引用 Validator-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
