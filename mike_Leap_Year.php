@@ -101,11 +101,13 @@
             ctx_dynamic.fillStyle = "red";
 
             var newText = "<?php
-                                if(isset($_GET['yearCheck'])) {
-                                    if ($tOrF)
-                                        echo "True";
-                                    else
-                                        echo "False";
+//                                if(isset($_GET['yearCheck'])) {
+                                if($tOrF !== ''){
+                                    echo ($tOrF?"True":"False");
+//                                    if ($tOrF)
+//                                        echo "True";
+//                                    else
+//                                        echo "False";
                                 };
                             ?>";
             ctx_dynamic.fillText(newText, 150, 270);
