@@ -8,3 +8,7 @@
         }
         return $ret;
     };
+
+    function checkAB($a,$b){
+        return '1A2B';
+    }

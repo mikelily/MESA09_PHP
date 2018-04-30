@@ -1,8 +1,11 @@
 <?php
     include 'mikeapis.php';
 
+    $result = '';
     if(isset($_GET['ans'])){
         $ans = $_GET['ans'];
+        $guess = $_GET['guess'];
+        $result = checkAB($ans, $guess);
     }else
         $ans = createAns(4);
     echo $ans . '<br>';
@@ -17,3 +20,8 @@
 
 
 </form>
+<div>
+    <?php
+        echo $result;
+    ?>
+</div>
