@@ -10,5 +10,12 @@
     };
 
     function checkAB($a,$b){
-        return '1A2B';
+        $A = $B = 0;
+        for($i=0;$i<strlen($a);$i++){
+            if(substr($a,$i,1) == substr($b,$i,1))
+                $A++;
+            elseif (strpos($b,substr($a,$i,1))!==false)
+                $B++;
+        }
+        return "{$A}A{$B}B";
     }
