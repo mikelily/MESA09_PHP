@@ -5,6 +5,8 @@
     for($i=0;$i<52;$i++){
         $poker[$i] = $i;
     };
+
+    //隨機一張後面的牌，與之交換
     for($i=0;$i<52;$i++){
         if($i==51)
             break;
@@ -16,7 +18,8 @@
             $poker[$rand] = $tmp;
         }
     };
-    //    print
+
+    //print
     $forBr = 0;
     foreach ($poker as $v){
         if($forBr==13){
