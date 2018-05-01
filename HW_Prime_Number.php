@@ -19,24 +19,22 @@
         }
     }
 
-    for($i=0;$i<100;$i++){
-        echo $num[$i] . ':';
-        if(checkPrime($num[$i]))
-            echo 'True';
-        else
-            echo 'False';
-
-        echo '<br>';
-
-    }
-
 ?>
 
+<table border="1" width="100%">
+    <?php
+        for($i=0;$i<10;$i++){
+            echo "<tr>";
+            for($j=0;$j<10;$j++){
+                echo "<td height='40' align='center'><font color='";
+                if(checkPrime($num[$i*10+$j])){
+                    echo "red'>{$num[$i*10+$j]}</font>";
+                }else
+                    echo "blue'>{$num[$i*10+$j]}</font>";
 
-
-
-
-
-<!--<table border="1" width="100%">-->
-<!--    -->
-<!--</table>-->
+                echo "</td>";
+            }
+            echo "</tr>";
+        }
+    ?>
+</table>
