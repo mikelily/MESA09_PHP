@@ -5,25 +5,21 @@
     session_start();
 
     $account = $_REQUEST['account'];
-    $passwd = $_REQUEST['passwd'];
+    $passwd  = $_REQUEST['passwd'];
 
-    $sql = "select * from member " .
-        "where account='{$account}'";
-    echo 'Hi';
+    $sql = "select * from member " . "where account='{$account}'";
+    //    select * from member where account=iii
+
+
     $result = $mysqli->query($sql);
-    if ($result->num_rows > 0){
+    if($result->num_rows > 0){
         $member = $result->fetch_object("Member");
 
-//                echo $member->id . '<br>';
-//                echo $member->name . '<br>';
-//                echo $member->account . '<br>';
-//                echo $member->passwd . '<br>';
-
-        if (password_verify($passwd , $member->passwd)){
+        if($passwd == $member->passwd){
             //            $cart = new Cart();
             //            $member->setCart($cart);
             $_SESSION['member'] = $member;
-            $_SESSION['cart'] = new Cart();
+            $_SESSION['cart']   = new Cart();
             header('Location: main.php');
         }else{
             header('Location: login.php');
