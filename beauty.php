@@ -16,9 +16,17 @@
 
     $indexPageNum = getFrontPage() + 1;
     //    var_dump($indexPageNum);
-    $indexPageNum = 2479; //fortest
+    //$indexPageNum = 2479; //fortest
 
-    $xml = findBlow("https://www.ptt.cc/bbs/Beauty/index" . $indexPageNum . ".html");
+//    $xml = findBlow("https://www.ptt.cc/bbs/Beauty/index" . $indexPageNum . ".html");
+
+    for($i=0;$i<10;$i++){
+        $xml="";
+        $newPage = $indexPageNum-$i;
+        $xml = findBlow("https://www.ptt.cc/bbs/Beauty/index" . $newPage . ".html");
+        if($xml)
+            echo $xml;
+    }
 
 //    if($xml)
 //        iftttSend($xml);
