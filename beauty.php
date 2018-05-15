@@ -8,26 +8,38 @@
     $file        = 'log.txt';
     $fail_log    = "0\n";
     $success_log = "1,";
-    $time        = date('G');
+    $time        = date('i');
     //    if($time == 6 || $time == 9 || $time == 12){
     //        if(date('i') == "30"){
     //UV
+//    echo "Time :" . $time . "<br>";
 
+    setInterval(function(){
+        $time        = date('i');
+        echo "Time :" . $time . "\n";
+        if($time == 0 || $time == 30){
+            $indexPageNum = getFrontPage() + 1;
 
-    $indexPageNum = getFrontPage() + 1;
-    //    var_dump($indexPageNum);
-    //$indexPageNum = 2479; //fortest
+            for($i = 0; $i < 3; $i++){
+                $newPage = $indexPageNum - $i;
+                findBlow(
+                    "https://www.ptt.cc/bbs/Beauty/index" . $newPage . ".html"
+                );
+            }
+        }
+    }, 60000);
 
-//    $xml = findBlow("https://www.ptt.cc/bbs/Beauty/index" . $indexPageNum . ".html");
+    //    if($time == 0 || $time == 30){
+    //        $indexPageNum = getFrontPage() + 1;
+    //
+    //        for($i = 0; $i < 3; $i++){
+    //            $newPage = $indexPageNum - $i;
+    //            findBlow(
+    //                "https://www.ptt.cc/bbs/Beauty/index" . $newPage . ".html"
+    //            );
+    //        }
+    //    }
 
-    for($i=0;$i<10;$i++){
-        $xml="";
-        $newPage = $indexPageNum-$i;
-        findBlow("https://www.ptt.cc/bbs/Beauty/index" . $newPage . ".html");
-    }
-
-//    if($xml)
-//        iftttSend($xml);
 
     function getFrontPage(){
         $beauty = file_get_contents(
@@ -54,10 +66,10 @@
     }
 
     function findBlow($url){
-        $aa = file_get_contents($url);
+        $aa        = file_get_contents($url);
         $checkBlow = count(explode("<span class=\"hl f1\">爆</span>",$aa));
-        if($checkBlow>1){
-            for($i=1;$i<$checkBlow;$i++){
+        if($checkBlow > 1){
+            for($i = 1; $i < $checkBlow; $i++){
                 $bb       = explode("<span class=\"hl f1\">爆</span>",$aa)[$i];
                 $bb       = explode("href=\"",$bb)[1];
                 $hrefBlow = "https://www.ptt.cc" . explode("\">",$bb)[0];
@@ -69,24 +81,24 @@
 
                 $xml = 'value1=' . $hrefBlow . '&value2=' . $tittleBlow
                     . '&value3=' . $authorBlow . '';
-//                echo $xml . "\n";
+                //                echo $xml . "\n";
                 iftttSend($xml);
             }
 
         }else{
             return null;
         }
-//        $bb       = explode("<span class=\"hl f1\">爆</span>",$aa)[1];
-//        $bb       = explode("href=\"",$bb)[1];
-//        $hrefBlow = "https://www.ptt.cc" . explode("\">",$bb)[0];
-//        //        $hrefBlow = "https://www.ptt.cc" . $hrefBlow;
-//        $tittleBlow = explode("\">",$bb)[1];
-//        $tittleBlow = explode("</a>",$tittleBlow)[0];
-//        $authorBlow = explode("\">",$bb)[3];
-//        $authorBlow = explode("</div>",$authorBlow)[0];
-//
-//        $xml = 'value1=' . $hrefBlow . '&value2=' . $tittleBlow
-//            . '&value3=' . ":" . $authorBlow . '';
+        //        $bb       = explode("<span class=\"hl f1\">爆</span>",$aa)[1];
+        //        $bb       = explode("href=\"",$bb)[1];
+        //        $hrefBlow = "https://www.ptt.cc" . explode("\">",$bb)[0];
+        //        //        $hrefBlow = "https://www.ptt.cc" . $hrefBlow;
+        //        $tittleBlow = explode("\">",$bb)[1];
+        //        $tittleBlow = explode("</a>",$tittleBlow)[0];
+        //        $authorBlow = explode("\">",$bb)[3];
+        //        $authorBlow = explode("</div>",$authorBlow)[0];
+        //
+        //        $xml = 'value1=' . $hrefBlow . '&value2=' . $tittleBlow
+        //            . '&value3=' . ":" . $authorBlow . '';
 
         return $xml;
         //        echo "Href\t: " . $hrefBlow . "\n";
@@ -96,10 +108,10 @@
         //        echo '<br>' . explode("\">",$bb)[1];
     }
 
-    function iftttSend ($xml){
+    function iftttSend($xml){
         $ifttt
-             = "https://maker.ifttt.com/trigger/Air&UV/with/key/beemMlRoWYgadFjC4_jCEJ";
-        $ch  = curl_init($ifttt);
+            = "https://maker.ifttt.com/trigger/Air&UV/with/key/beemMlRoWYgadFjC4_jCEJ";
+        $ch = curl_init($ifttt);
 
         curl_setopt($ch,CURLOPT_POST,1);
         curl_setopt($ch,CURLOPT_POSTFIELDS,$xml);
@@ -109,4 +121,15 @@
         curl_close($ch);
 
     }
+
+    function setInterval($f, $milliseconds)
+    {
+        $seconds=(int)$milliseconds/1000;
+        while(true)
+        {
+            $f();
+            sleep($seconds);
+        }
+    }
+
 ?>
