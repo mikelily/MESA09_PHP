@@ -23,9 +23,7 @@
     for($i=0;$i<10;$i++){
         $xml="";
         $newPage = $indexPageNum-$i;
-        $xml = findBlow("https://www.ptt.cc/bbs/Beauty/index" . $newPage . ".html");
-        if($xml)
-            echo $xml;
+        findBlow("https://www.ptt.cc/bbs/Beauty/index" . $newPage . ".html");
     }
 
 //    if($xml)
@@ -57,17 +55,38 @@
 
     function findBlow($url){
         $aa = file_get_contents($url);
-        $bb       = explode("<span class=\"hl f1\">爆</span>",$aa)[1];
-        $bb       = explode("href=\"",$bb)[1];
-        $hrefBlow = "https://www.ptt.cc" . explode("\">",$bb)[0];
-        //        $hrefBlow = "https://www.ptt.cc" . $hrefBlow;
-        $tittleBlow = explode("\">",$bb)[1];
-        $tittleBlow = explode("</a>",$tittleBlow)[0];
-        $authorBlow = explode("\">",$bb)[3];
-        $authorBlow = explode("</div>",$authorBlow)[0];
+        $checkBlow = count(explode("<span class=\"hl f1\">爆</span>",$aa));
+        if($checkBlow>1){
+            for($i=1;$i<$checkBlow;$i++){
+                $bb       = explode("<span class=\"hl f1\">爆</span>",$aa)[$i];
+                $bb       = explode("href=\"",$bb)[1];
+                $hrefBlow = "https://www.ptt.cc" . explode("\">",$bb)[0];
+                //        $hrefBlow = "https://www.ptt.cc" . $hrefBlow;
+                $tittleBlow = explode("\">",$bb)[1];
+                $tittleBlow = explode("</a>",$tittleBlow)[0];
+                $authorBlow = explode("\">",$bb)[3];
+                $authorBlow = explode("</div>",$authorBlow)[0];
 
-        $xml = 'value1=' . $hrefBlow . '&value2=' . $tittleBlow
-            . '&value3=' . ":" . $authorBlow . '';
+                $xml = 'value1=' . $hrefBlow . '&value2=' . $tittleBlow
+                    . '&value3=' . $authorBlow . '';
+//                echo $xml . "\n";
+                iftttSend($xml);
+            }
+
+        }else{
+            return null;
+        }
+//        $bb       = explode("<span class=\"hl f1\">爆</span>",$aa)[1];
+//        $bb       = explode("href=\"",$bb)[1];
+//        $hrefBlow = "https://www.ptt.cc" . explode("\">",$bb)[0];
+//        //        $hrefBlow = "https://www.ptt.cc" . $hrefBlow;
+//        $tittleBlow = explode("\">",$bb)[1];
+//        $tittleBlow = explode("</a>",$tittleBlow)[0];
+//        $authorBlow = explode("\">",$bb)[3];
+//        $authorBlow = explode("</div>",$authorBlow)[0];
+//
+//        $xml = 'value1=' . $hrefBlow . '&value2=' . $tittleBlow
+//            . '&value3=' . ":" . $authorBlow . '';
 
         return $xml;
         //        echo "Href\t: " . $hrefBlow . "\n";
