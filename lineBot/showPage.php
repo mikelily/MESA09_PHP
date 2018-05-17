@@ -2,20 +2,23 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" type="text/css" href="lineBotCSS.css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css" />
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 </head>
 <body>
 <?php
     require_once 'lineBotAPI.php';
 
     $boardName = "";
-    $boardName = $_GET['inBoardName'];
+    if(isset($_GET['inBoardName']))
+        $boardName = $_GET['inBoardName'];
 
     $hotBoardName = [
         "Beauty","Joke","Movie","WomenTalk","RealmOfValor","LOL","NBA",
-        "BabyMother","Baseball","Boy-Girl","Hearthstone","Tos","StupidClown",
+        "BabyMother","Baseball","Boy-Girl","Hearthstone","Tos","StupidClown"
     ];
     if(in_array($boardName,$hotBoardName)){
-        //donothing
     }else{
         if($boardName == ""){
 
@@ -66,7 +69,7 @@
 <div align="center" class="lazyPtt">
     <?php echo $boardName; ?>
 </div>
-<table width="80%" border="0" align="center">
+<table width="80%" border="0" align="center">$
     <tr>
         <th width="15%" bgcolor="#E6E6E6"><strong>板名</strong>
         </th>
@@ -129,7 +132,17 @@
     </tr>
 
 </table>
+
 <div class="inBNForm">
+    <script>
+        $(function() {
+            $('#inBoardName').autocomplete({
+                source: [ "Beauty","Joke","Movie","WomenTalk","RealmOfValor","LOL","NBA",
+                    "BabyMother","Baseball","Boy-Girl","Hearthstone","Tos","StupidClown",
+                    "car" ]
+            });
+        });
+    </script>
     <form action="showPage.php" method="get">
         在此輸入想搜尋的板名：
         <input id="inBoardName" name="inBoardName" type="text">
@@ -137,10 +150,13 @@
     </form>
     <a href="showPage.php?inBoardName=">LazyPTT 首頁</a>
     <?php
+        if($boardName!="Lazy PTT")
+            echo $boardName."板";
         echo "共" . $rows . "筆資料";
         for($i = 0; $i < $pages; $i++){
             if($boardName == "Lazy PTT"){
-                echo "<a href=\"showPage.php?inBoardName=&page=" . ($i + 1) . "\">" . ($i + 1) . "</a> ";
+                echo "<a href=\"showPage.php?inBoardName=&page=" .
+                    ($i + 1) . "\">" . ($i + 1) . "</a> ";
             }else{
                 echo "<a href=\"showPage.php?inBoardName=" . $boardName
                     . "&page=" . ($i + 1) . "\">" . ($i + 1) . "</a> ";

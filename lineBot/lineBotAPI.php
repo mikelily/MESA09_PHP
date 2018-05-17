@@ -41,12 +41,8 @@
                             . '&value3=' . $boardName;
                         iftttSend($xml);
                     }
-
-                    //echo $xml . "\n";
                 }
-
             }
-
         }else{
             return null;
         }
@@ -73,11 +69,9 @@
         $pdo = new PDO($dsn,'root','root');
 
         $queryTemp
-            = "insert into record values('$tempBlow','$timeStamp','$tempTittle','$tempAuthor','$boardName')";
-        //echo $queryTemp . "<br>";
+            = "insert into record values('$tempBlow','$timeStamp',
+              '$tempTittle','$tempAuthor','$boardName')";
         $pdo->query($queryTemp);
-
-
     }
 
     function iftttSend($xml){
