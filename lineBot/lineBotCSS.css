@@ -9,17 +9,21 @@
 th {
     background-color: #4CAF50;
     color: white;
-    letter-spacing: 30px;
-    font-size: 20px;
+    letter-spacing: 18px;
+    font-size: 18px;
 }
+
 tr:nth-child(even){background-color: #f2f2f2}
+td{
+    height: 28px;
+}
 table, th, td {
     text-align: center;
     border: 1px solid green;
 }
 .bottomTH{
-    background-color: #4CAF50;
-    color: white;
+    background-color: #f2f2f2;
+    color: black;
     letter-spacing: 1px;
     font-size: 14px;
 }
@@ -28,4 +32,7 @@ table, th, td {
     margin-left: 145px;
     font-size: 20px;
     color: #6f42c1;
+}
+.hbnA{
+    color: white;
 }

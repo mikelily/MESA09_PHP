@@ -16,7 +16,7 @@
 
     }
 
-    function findBlow($url,$boardName){
+    function findBlow($url,$boardName,$ifSendIfttt){
         $aa        = file_get_contents($url);
         $checkBlow = count(explode("<span class=\"hl f1\">爆</span>",$aa));
         if($checkBlow > 1){
@@ -36,12 +36,13 @@
                     insertSQL(
                         $hrefBlow,$timeStamp,$tittleBlow,$authorBlow,$boardName
                     );
+                    if($ifSendIfttt){
+                        $xml = 'value1=' . $hrefBlow . '&value2=' . $tittleBlow
+                            . '&value3=' . $boardName;
+                        iftttSend($xml);
+                    }
 
-                    $xml = 'value1=' . $hrefBlow . '&value2=' . $tittleBlow
-                        . '&value3=' . $boardName;
-                    iftttSend($xml);
-
-                    echo $xml . "\n";
+                    //echo $xml . "\n";
                 }
 
             }

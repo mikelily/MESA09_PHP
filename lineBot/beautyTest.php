@@ -9,21 +9,12 @@
     $pdo       = new PDO($dsn,'root','root');
     $queryTemp = "select * from record ORDER BY time_Stamp DESC";
     $stmt      = $pdo->query($queryTemp);
-    //    var_dump($stmt);
-    //    $row_user = mysql_fetch_assoc($sql)
-    //    foreach($stmt as $k => $v)
-    //        echo $k."板名 : ".$v['boardName']."\t標題 : ".$v['tittle']."<br>";
 ?>
 <div align="center" class="lazyPtt">
     Lazy PTT
-
-
 </div>
 
 <table width="80%" border="0" align="center">
-    <tr>
-        <th colspan="4">綜合主題</th>
-    </tr>
     <tr>
         <td width="15%" bgcolor="#E6E6E6"><strong>板名</strong>
         </td>
@@ -35,7 +26,7 @@
         </td>
     </tr>
     <?php
-        for($i = 0; $i < 15; $i++){
+        for($i = 0; $i < 18; $i++){
             $resultArray = $stmt->fetch();
             //            var_dump($resultArray);
             ?>
@@ -55,9 +46,15 @@
                 </td>
                 <td width="25%">
                     <strong>
-                        <?php echo date(
-                            'Y/m/d H:i',$resultArray['time_Stamp']
-                        ); ?></strong>
+                        <?php
+                            if($resultArray == ""){
+                                echo "";
+                            }else{
+                                echo date(
+                                    'Y/m/d H:i',$resultArray['time_Stamp']
+                                );
+                            } ?>
+                    </strong>
                 </td>
             </tr>
             <?php
@@ -65,13 +62,23 @@
     ?>
     <tr>
         <th colspan="4" class="bottomTH">
-            目前搜尋中的有這些板：Beauty,Joke,Movie,WomenTalk,RealmOfValor,LOL,NBA,BabyMother,Baseball,Boy-Girl,Hearthstone,Tos,StupidClown
+            目前搜尋中的有這些板：<?php
+                $hotBoardName = [
+                    "Beauty","Joke","Movie","WomenTalk","RealmOfValor","LOL",
+                    "NBA","BabyMother","Baseball","Boy-Girl","Hearthstone",
+                    "Tos","StupidClown",
+                ];
+                foreach($hotBoardName as $hbn){
+                    echo "<a href=\"http://localhost/lineBot/showPage.php?inBoardName=$hbn\">$hbn</a> ";
+                }
+            ?>
+
         </th>
     </tr>
 
 </table>
 <div class="inBNForm">
-    <form action="showPage.php" method="post">
+    <form action="showPage.php" method="get">
         在此輸入想搜尋的板名：
         <input id="inBoardName" name="inBoardName" type="text">
         <input type="submit" value="送出">

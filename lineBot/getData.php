@@ -16,7 +16,7 @@
                     $newPage = $indexPageNum - $i;
                     findBlow(
                         "https://www.ptt.cc/bbs/" . $hbn . "/index" . $newPage
-                        . ".html",$hbn
+                        . ".html",$hbn,true
                     );
                 }
             }
