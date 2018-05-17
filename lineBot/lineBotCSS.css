@@ -1,0 +1,31 @@
+.lazyPtt{
+    Color: #6f42c1;
+    font-family: "Times New Roman", Times, serif;
+    font-style: oblique;
+    font-size: 5vw;
+    font-weight: bold;
+
+}
+th {
+    background-color: #4CAF50;
+    color: white;
+    letter-spacing: 30px;
+    font-size: 20px;
+}
+tr:nth-child(even){background-color: #f2f2f2}
+table, th, td {
+    text-align: center;
+    border: 1px solid green;
+}
+.bottomTH{
+    background-color: #4CAF50;
+    color: white;
+    letter-spacing: 1px;
+    font-size: 14px;
+}
+.inBNForm{
+    margin-top: 10px;
+    margin-left: 145px;
+    font-size: 20px;
+    color: #6f42c1;
+}

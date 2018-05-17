@@ -33,12 +33,15 @@
 
                     $timeStamp = explode("/M.",$hrefBlow)[1];
                     $timeStamp = explode(".A.",$timeStamp)[0];
-                    insertSQL($hrefBlow,$timeStamp,$tittleBlow,$authorBlow,$boardName);
+                    insertSQL(
+                        $hrefBlow,$timeStamp,$tittleBlow,$authorBlow,$boardName
+                    );
 
-                    $xml = '網址=' . $hrefBlow . '&標題=' . $tittleBlow
-                        . '&作者=' . $authorBlow . '';
+                    $xml = 'value1=' . $hrefBlow . '&value2=' . $tittleBlow
+                        . '&value3=' . $boardName;
                     iftttSend($xml);
-                    echo $xml."\n";
+
+                    echo $xml . "\n";
                 }
 
             }
